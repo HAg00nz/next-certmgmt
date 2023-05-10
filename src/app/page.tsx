@@ -1,15 +1,13 @@
-import { prisma } from '@/lib/prisma'
+import { getServerSession } from 'next-auth'
+import { authOptions } from './api/auth/[...nextauth]/route'
 
 export default async function Home() {
-  const user = await prisma.user.findFirst({
-    where: {
-      email: 'admin@certmgmt.com'
-    }
-  })
+  const session = await getServerSession(authOptions)
 
   return (
     <main>
-      Hello, {user?.name}!
+      Hello World!
+      <pre>{JSON.stringify(session)}</pre>
     </main>
   )
 }
